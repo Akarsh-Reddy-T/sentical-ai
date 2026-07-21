@@ -1,0 +1,10 @@
+.git
+.github
+.next
+.vinext
+.wrangler
+node_modules
+npm-debug.log*
+coverage
+.env*
+!.env.example
