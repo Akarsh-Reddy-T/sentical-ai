@@ -1,17 +1,17 @@
-FROM node:24.18.0-alpine3.23 AS dependencies
+FROM node:26.9.0-alpine3.23 AS dependencies
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 COPY package.json package-lock.json .npmrc ./
 RUN npm ci --ignore-scripts
 
-FROM node:24.18.0-alpine3.23 AS builder
+FROM node:26.9.0-alpine3.23 AS builder
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
 
-FROM node:24.18.0-alpine3.23 AS runtime
+FROM node:26.9.0-alpine3.23 AS runtime
 WORKDIR /app
 ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1 \
